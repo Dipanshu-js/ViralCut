@@ -1,1 +1,2 @@
 2026-02-25 09:14:32 — init: project scaffold with Next.js 15 and Prisma
+2026-02-25 14:37:08 — feat: add JWT auth with HttpOnly cookie sessions
