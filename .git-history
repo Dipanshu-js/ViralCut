@@ -2,3 +2,4 @@
 2026-02-25 14:37:08 — feat: add JWT auth with HttpOnly cookie sessions
 2026-02-26 10:22:51 — feat: add PostgreSQL schema — users, projects, shorts
 2026-02-26 16:45:19 — chore: configure Vercel deployment and env vars
+2026-02-27 09:03:44 — feat: factory page — YouTube URL input and analysis flow
