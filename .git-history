@@ -5,3 +5,4 @@
 2026-02-27 09:03:44 — feat: factory page — YouTube URL input and analysis flow
 2026-02-27 13:51:27 — feat: integrate Groq LLaMA 3.3 for viral moment scoring
 2026-02-27 18:20:06 — fix: handle rate limiting with Groq key rotation
+2026-02-28 11:08:33 — feat: add 8 canvas templates with animated backgrounds
