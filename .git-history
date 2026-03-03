@@ -10,3 +10,4 @@
 2026-03-02 09:44:17 — feat: ytproxy API route — CORS-safe video stream
 2026-03-02 14:02:39 — feat: add 5 caption render styles on canvas
 2026-03-02 17:28:50 — fix: canvas crossOrigin headers for CORS-safe drawing
+2026-03-03 08:55:21 — feat: hook generator — 8 AI overlays per short
