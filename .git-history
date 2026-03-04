@@ -12,3 +12,4 @@
 2026-03-02 17:28:50 — fix: canvas crossOrigin headers for CORS-safe drawing
 2026-03-03 08:55:21 — feat: hook generator — 8 AI overlays per short
 2026-03-03 13:40:48 — feat: script generator for 6 platforms
+2026-03-04 10:30:14 — feat: ElevenLabs voiceover with Google TTS fallback
