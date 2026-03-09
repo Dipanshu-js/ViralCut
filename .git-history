@@ -23,3 +23,4 @@
 2026-03-08 10:02:37 — fix: add runtime nodejs to all 31 API routes for Vercel
 2026-03-09 09:31:48 — feat: per-user API key storage with DB encryption
 2026-03-09 14:15:03 — fix: remove duplicate next.config.ts
+2026-03-09 18:47:22 — feat: add .github/workflows CI with type-check and build
