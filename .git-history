@@ -21,3 +21,4 @@
 2026-03-06 16:33:56 — fix: border shorthand conflicts in scene-generator tabs
 2026-03-07 11:19:22 — feat: YouTube embed iframe fallback when proxy fails
 2026-03-08 10:02:37 — fix: add runtime nodejs to all 31 API routes for Vercel
+2026-03-09 09:31:48 — feat: per-user API key storage with DB encryption
