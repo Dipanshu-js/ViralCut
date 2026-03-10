@@ -25,3 +25,4 @@
 2026-03-09 14:15:03 — fix: remove duplicate next.config.ts
 2026-03-09 18:47:22 — feat: add .github/workflows CI with type-check and build
 2026-03-10 09:08:55 — docs: professional README with badges and quick start
+2026-03-10 13:52:41 — chore: gitignore — exclude secrets, build artifacts, scripts
