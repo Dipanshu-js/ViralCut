@@ -2,15 +2,14 @@
 
 [![banner](https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,100:6c5ce7&height=140&section=header&text=ViralCut&fontSize=38&fontColor=ffffff&fontAlignY=50&desc=AI+YouTube+Shorts+Factory&descSize=14&descAlignY=70&descFontColor=8b949e)](https://viralcut.vercel.app)
 
-[![npm](https://img.shields.io/badge/next.js-15-238636?style=flat-square&labelColor=0d1117)](https://nextjs.org)
-&nbsp;
-[![ci](https://img.shields.io/github/actions/workflow/status/Dipanshu-js/ViralCut/ci.yml?style=flat-square&color=238636&labelColor=0d1117&label=ci)](https://github.com/Dipanshu-js/ViralCut/actions)
-&nbsp;
-[![node](https://img.shields.io/badge/groq-llama_3.3_70b-238636?style=flat-square&labelColor=0d1117)](https://groq.com)
-&nbsp;
-[![license](https://img.shields.io/github/license/Dipanshu-js/ViralCut?style=flat-square&color=8b949e&labelColor=0d1117)](LICENSE)
-&nbsp;
-[![stars](https://img.shields.io/github/stars/Dipanshu-js/ViralCut?style=flat-square&color=f0b429&labelColor=0d1117)](https://github.com/Dipanshu-js/ViralCut/stargazers)
+[![Next.js](https://img.shields.io/badge/Next.js_15-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org)
+[![Groq](https://img.shields.io/badge/Groq_LLaMA_3.3-FF6B35?style=for-the-badge&logoColor=white)](https://groq.com)
+[![Neon](https://img.shields.io/badge/PostgreSQL-Neon-00E5A0?style=for-the-badge&logo=postgresql&logoColor=white)](https://neon.tech)
+[![Tailwind](https://img.shields.io/badge/TailwindCSS-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Prisma](https://img.shields.io/badge/Prisma_ORM-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://prisma.io)
+[![License](https://img.shields.io/github/license/Dipanshu-js/ViralCut?style=for-the-badge&color=8b949e)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/Dipanshu-js/ViralCut?style=for-the-badge&color=ffd43b)](https://github.com/Dipanshu-js/ViralCut/stargazers)
 
 </div>
 
