@@ -1,0 +1,167 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String          @id @default(cuid())
+  email       String          @unique
+  password    String
+  name        String?
+  isAdmin     Boolean         @default(false)
+  createdAt   DateTime        @default(now())
+  projects    Project[]
+  clips       GeneratedClip[]
+  jobs        GenerationJob[]
+  settings    UserSettings?
+  scheduled   ScheduledPost[]
+
+  @@map("users")
+}
+
+model UserSettings {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  defaultTemplate   String   @default("dark")
+  defaultCapStyle   String   @default("bold")
+  defaultVoice      String   @default("adam")
+  defaultPlatform   String   @default("shorts")
+  defaultStyle      String   @default("motivational")
+  groqKeys          String[] @default([])
+  elevenLabsKey     String?
+  youtubeApiKey     String?
+  geminiKey         String?
+  xaiKey            String?
+  runwayKey         String?
+  pikaKey           String?
+  lumaKey           String?
+  pexelsKey         String?
+  pixabayKey        String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("user_settings")
+}
+
+model Project {
+  id         String   @id @default(cuid())
+  title      String
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  sourceUrl  String?
+  videoId    String?
+  thumbnail  String?
+  duration   Float    @default(0)
+  viewCount  Int      @default(0)
+  channel    String?
+  shorts     Short[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([userId])
+  @@map("projects")
+}
+
+model Short {
+  id             String   @id @default(cuid())
+  projectId      String
+  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title          String
+  startTime      Float
+  endTime        Float
+  duration       Float
+  hookText       String?
+  hookOverlay    String?
+  captionStyle   String   @default("bold")
+  template       String   @default("dark")
+  accentColor    String   @default("#5b5bd6")
+  viralScore     Int      @default(0)
+  style          String   @default("educational")
+  why            String?
+  callToAction   String?
+  suggestedTitle String?
+  suggestedTags  String[] @default([])
+  exportedUrl    String?
+  publishedAt    DateTime?
+  metadata       Json?
+  createdAt      DateTime @default(now())
+
+  @@index([projectId])
+  @@map("shorts")
+}
+
+model GeneratedClip {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
+  prompt         String
+  videoUrl       String?
+  stitchedUrl    String?
+  duration       Int      @default(6)
+  aspectRatio    String   @default("16:9")
+  resolution     String   @default("720p")
+  style          String   @default("cinematic")
+  sceneIndex     Int      @default(0)
+  projectId      String?
+  status         String   @default("pending")
+  jobId          String?
+  generationMode String   @default("premium")
+  provider       String   @default("grok")
+  queuePosition  Int      @default(0)
+  estimatedTime  Int      @default(30)
+  errorMessage   String?
+  metadata       Json?
+  createdAt      DateTime @default(now())
+
+  @@index([userId])
+  @@index([jobId])
+  @@map("generated_clips")
+}
+
+model GenerationJob {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id])
+  status          String    @default("queued")
+  generationMode  String    @default("premium")
+  provider        String    @default("grok")
+  totalScenes     Int       @default(1)
+  completedScenes Int       @default(0)
+  failedScenes    Int       @default(0)
+  clipIds         String[]  @default([])
+  stitchedUrl     String?
+  errorMessage    String?
+  startedAt       DateTime?
+  completedAt     DateTime?
+  createdAt       DateTime  @default(now())
+
+  @@index([userId])
+  @@map("generation_jobs")
+}
+
+model ScheduledPost {
+  id           String    @id @default(cuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id])
+  title        String
+  description  String?
+  platform     String    @default("youtube")
+  scheduledFor DateTime
+  status       String    @default("scheduled")
+  videoUrl     String?
+  thumbnailUrl String?
+  tags         String[]  @default([])
+  publishedUrl String?
+  publishedAt  DateTime?
+  shortId      String?
+  createdAt    DateTime  @default(now())
+
+  @@index([userId])
+  @@index([scheduledFor])
+  @@map("scheduled_posts")
+}

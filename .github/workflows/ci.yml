@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  type-check:
+    name: TypeScript & Build Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma client
+        run: npx prisma generate
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Build
+        run: npm run build
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL || 'postgresql://user:pass@localhost/test' }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET || 'ci-test-secret-key-min-32-chars-long' }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL || 'admin@example.com' }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD || 'test-password' }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY || 'gsk_placeholder' }}
+          NEXT_PUBLIC_APP_URL: 'http://localhost:3000'
+          SKIP_ENV_VALIDATION: 'true'
