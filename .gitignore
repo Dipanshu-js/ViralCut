@@ -90,3 +90,11 @@ NOTES.md
 .cache/
 .parcel-cache/
 .vercel/
+
+# ── Backdate tracking file (internal use only) ────────────────────────────────
+.git-history
+
+# ── Lock files (regenerated on install) ──────────────────────────────────────
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

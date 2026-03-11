@@ -1,172 +1,111 @@
 <div align="center">
-  <br />
-  <a href="https://viralcut.vercel.app" target="_blank">
-    <img src="https://img.shields.io/badge/⚡_ViralCut-AI_YouTube_Shorts_Factory-6c5ce7?style=for-the-badge&logoColor=white" alt="ViralCut Banner" />
-  </a>
-  <br /><br />
 
-  <div>
-    <img src="https://img.shields.io/badge/Next.js_15-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" />
-    <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
-    <img src="https://img.shields.io/badge/Groq_AI-FF6B35?style=for-the-badge&logoColor=white" alt="Groq" />
-    <img src="https://img.shields.io/badge/PostgreSQL-Neon-00E5A0?style=for-the-badge&logo=postgresql&logoColor=white" alt="Neon" />
-    <img src="https://img.shields.io/badge/TailwindCSS-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind" />
-    <img src="https://img.shields.io/badge/Prisma_ORM-2D3748?style=for-the-badge&logo=prisma&logoColor=white" alt="Prisma" />
-  </div>
-  <br />
+[![banner](https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,100:6c5ce7&height=140&section=header&text=ViralCut&fontSize=38&fontColor=ffffff&fontAlignY=50&desc=AI+YouTube+Shorts+Factory&descSize=14&descAlignY=70&descFontColor=8b949e)](https://viralcut.vercel.app)
 
-  <h3>Turn any YouTube video into viral Shorts — in minutes, entirely in your browser.</h3>
+[![npm](https://img.shields.io/badge/next.js-15-238636?style=flat-square&labelColor=0d1117)](https://nextjs.org)
+&nbsp;
+[![ci](https://img.shields.io/github/actions/workflow/status/Dipanshu-js/ViralCut/ci.yml?style=flat-square&color=238636&labelColor=0d1117&label=ci)](https://github.com/Dipanshu-js/ViralCut/actions)
+&nbsp;
+[![node](https://img.shields.io/badge/groq-llama_3.3_70b-238636?style=flat-square&labelColor=0d1117)](https://groq.com)
+&nbsp;
+[![license](https://img.shields.io/github/license/Dipanshu-js/ViralCut?style=flat-square&color=8b949e&labelColor=0d1117)](LICENSE)
+&nbsp;
+[![stars](https://img.shields.io/github/stars/Dipanshu-js/ViralCut?style=flat-square&color=f0b429&labelColor=0d1117)](https://github.com/Dipanshu-js/ViralCut/stargazers)
 
-  <p>AI finds the best moments. Auto-captions. AI hooks and voiceover. Styled 9:16 canvas export. <br/>Free forever. No credit card. No software download.</p>
 </div>
+
+---
+
+Paste any YouTube URL. AI scores every moment 0–99. Pick the best clips, style them on an animated 9:16 canvas, add captions + hooks + voiceover, and export `.webm` — entirely in your browser. Free forever.
+
+```
+https://youtube.com/watch?v=dQw4w9WgXcQ
+
+⚡ Analyzing with Groq LLaMA 3.3...
+
+  #1  92  "The ONE habit that changed everything"   0:14 – 1:02
+  #2  87  "Why most people quit before this point"  3:44 – 4:28
+  #3  78  "I tried this for 30 days — here's what"  7:11 – 8:05
+
+✔ 5 viral moments found · template: Dark · captions: Neon · voice: ElevenLabs
+→ Exporting canvas .webm 30fps 6Mbps... done (12.4MB)
+```
 
 ---
 
 ## ⚙️ Tech Stack
 
-- **[Next.js 15](https://nextjs.org/)** — Full-stack React framework with App Router and server components. Powers all routing, API endpoints (31 routes), and server-side rendering.
-
-- **[Groq SDK](https://groq.com/)** — Ultra-fast LLaMA 3.3 70b inference for AI analysis. Free tier gives 14,400 requests/day. Used for viral scoring, hook generation, script writing, and competitor analysis.
-
-- **[PostgreSQL + Neon](https://neon.tech/)** — Serverless PostgreSQL database. Stores users, projects, API keys, and scheduled content. Neon's free tier is sufficient for self-hosting.
-
-- **[Prisma ORM](https://www.prisma.io/)** — Type-safe database client. Schema-first with auto-generated migrations. Runs `prisma generate` automatically on `npm install` via postinstall hook.
-
-- **[Canvas API + MediaRecorder](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)** — 100% browser-native video export. Canvas renders each frame (template + captions + hooks), MediaRecorder captures as `.webm` at 30FPS, 6Mbps. Zero server upload required.
-
-- **[ElevenLabs API](https://elevenlabs.io/)** — Premium AI voiceover with 5 voice models. Falls back to Google Translate TTS (free, no key) → Browser speechSynthesis (always works).
-
-- **[TailwindCSS](https://tailwindcss.com/)** — Utility-first CSS. Used for base resets only; most styling is via a custom CSS variable design system supporting dark and light mode.
-
-- **[JWT + bcryptjs](https://www.npmjs.com/package/jsonwebtoken)** — Stateless authentication via HttpOnly cookies. Passwords hashed at 12 rounds. No third-party auth provider needed.
-
-- **[Sonner](https://sonner.emilkowal.ski/)** — Toast notification library for React. Used throughout the app for operation feedback.
+- **[Next.js 15](https://nextjs.org/)** — App Router, 31 API routes, full-stack TypeScript.
+- **[Groq SDK](https://groq.com/)** — LLaMA 3.3 70b. 14,400 free req/day. Viral scoring, hooks, scripts, competitor intel.
+- **[PostgreSQL + Neon](https://neon.tech/)** — Serverless DB for users, projects, and per-user API keys.
+- **[Prisma ORM](https://www.prisma.io/)** — Type-safe client. Auto-generates on `npm install`.
+- **[Canvas API + MediaRecorder](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)** — 100% browser-native `.webm` export at 30FPS, 6Mbps. Zero upload.
+- **[ElevenLabs](https://elevenlabs.io/)** — Premium voiceover. Cascades to Google TTS → Browser TTS automatically.
+- **[JWT + bcryptjs](https://www.npmjs.com/package/jsonwebtoken)** — HttpOnly cookie auth. No third-party provider.
 
 ---
 
 ## 🔋 Features
 
-👉 **AI Viral Analysis** — Groq LLaMA 3.3 70b scores every moment 0–99 based on hook strength, emotional trigger, view velocity, and retention signals.
+👉 **AI Viral Analysis** — 0–99 score per moment: hook strength, emotion, view velocity, retention.
 
-👉 **8 Animated Canvas Templates** — Dark, Ocean, Forest, Fire, Gold, Cherry, Cosmic, and Steel. All animated in 9:16 with glow effects, particles, and gradient overlays.
+👉 **8 Canvas Templates** — Dark, Ocean, Forest, Fire, Gold, Cherry, Cosmic, Steel. All animated 9:16.
 
-👉 **Auto Captions** — YouTube captions fetched server-side (bypasses browser CORS). 5 render styles: Bold, Neon, Boxed, Yellow, Word-by-word.
+👉 **Auto Captions** — Server-side YouTube caption fetch (bypasses CORS). 5 render styles.
 
-👉 **AI Voiceover Cascade** — ElevenLabs (5 voices) → Google TTS (free) → Browser TTS. Works without any API key.
+👉 **Voiceover Cascade** — ElevenLabs → Google TTS → Browser TTS. Works with zero API keys.
 
-👉 **Video Proxy + Embed Fallback** — 8 Invidious failover nodes for CORS-safe canvas drawing. YouTube embed fallback when proxy fails.
+👉 **Browser Export** — `.webm` VP9, 30FPS, 6Mbps. No server upload, no software needed.
 
-👉 **Browser Export** — Canvas API + MediaRecorder exports `.webm` (VP9, 30FPS, 6Mbps) directly in-browser. No server upload.
+👉 **Hook Generator** — 8 AI overlay hooks per Short. One-click apply to canvas.
 
-👉 **Hook Generator** — AI writes 8 hook overlay variations per Short with one-click canvas apply and A/B test mode.
+👉 **Trend Research** — Real-time trending by region (10 countries) + viral score dashboard.
 
-👉 **Trend Research** — Real-time trending videos by region (10 countries) or niche. Viral score dashboard with view velocity.
+👉 **Script Generator** — AI scripts for 6 platforms: Shorts, Reels, TikTok, YouTube, LinkedIn, Twitter.
 
-👉 **Script Generator** — AI scripts for 6 platforms: YouTube Shorts, Reels, TikTok, YouTube long-form, LinkedIn, Twitter.
+👉 **Competitor Intel** — Decode any channel's content formula: hooks, titles, topics, audience psychology.
 
-👉 **Competitor Intel** — Reverse-engineer any YouTube channel's content formula: title patterns, hook styles, topic themes, audience psychology.
-
-👉 **Scene Generator** — AI video from text prompts. Free tier: Pexels, Pixabay, Canvas slideshow. Premium: Runway, Pika, Luma.
-
-👉 **Content Calendar** — Schedule and pipeline your Shorts with status tracking across the week.
-
-and many more, including multi-key Groq rotation, per-user API keys, server-side clip download (yt-dlp + ffmpeg), and full dark/light mode.
+👉 **Scene Generator** — AI video from prompts. Free: Pexels/Pixabay. Premium: Runway, Pika, Luma.
 
 ---
 
 ## 🤸 Quick Start
 
-Follow these steps to set up ViralCut locally on your machine.
-
-**Prerequisites**
-
-Make sure you have the following installed:
-
-- [Git](https://git-scm.com/)
-- [Node.js 18+](https://nodejs.org/en)
-- [npm](https://www.npmjs.com/)
-- A free PostgreSQL database — [Neon](https://neon.tech) recommended
-- A free Groq API key — [console.groq.com](https://console.groq.com/keys)
-
-**Cloning the Repository**
+**Prerequisites:** [Node.js 18+](https://nodejs.org/en) · [Neon DB](https://neon.tech) (free) · [Groq key](https://console.groq.com/keys) (free)
 
 ```bash
-git clone https://github.com/Dipanshu-js/viralcut.git
-cd viralcut
-```
-
-**Installation**
-
-```bash
+git clone https://github.com/Dipanshu-js/ViralCut.git
+cd ViralCut
 npm install
 ```
 
-This also runs `prisma generate` automatically via the postinstall hook.
-
-**Set Up Environment Variables**
-
-Create a new file named `.env.local` in the root of your project:
+Create `.env.local`:
 
 ```env
-# ── Required ──────────────────────────────────────────────────────────────────
 DATABASE_URL="postgresql://user:pass@ep-xxx.region.aws.neon.tech/neondb?sslmode=require"
-JWT_SECRET="your-random-secret-min-32-characters-long"
+JWT_SECRET="your-random-secret-min-32-characters"
 ADMIN_EMAIL="admin@yourdomain.com"
 ADMIN_PASSWORD="your-secure-password"
 GROQ_API_KEY="gsk_..."
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
-
-# ── Optional (unlock more features) ───────────────────────────────────────────
-YOUTUBE_API_KEY="AIza..."         # Real-time trending data
-ELEVENLABS_API_KEY="sk_..."       # Premium AI voiceover (5 voices)
-PEXELS_API_KEY="..."              # Stock video for Scene Generator
-PIXABAY_API_KEY="..."             # Additional stock video
 ```
 
-> See `.env.example` for the full list including Runway, Pika, Luma, Gemini, and xAI keys.
-
-**Initialize the Database**
+> See `.env.example` for optional keys — YouTube, ElevenLabs, Pexels, Runway, Gemini and more.
 
 ```bash
 npx prisma migrate dev --name init
-```
-
-**Running the Project**
-
-```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) and log in with your `ADMIN_EMAIL` and `ADMIN_PASSWORD`.
+Open [http://localhost:3000](http://localhost:3000) — log in with `ADMIN_EMAIL` / `ADMIN_PASSWORD`.
 
 ---
 
 ## 🚀 Deploy to Vercel
 
-**One-click deploy:**
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Dipanshu-js/ViralCut)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Dipanshu-js/viralcut)
-
-**Or via CLI:**
-
-```bash
-npm i -g vercel
-vercel login
-vercel --prod
-```
-
-**Required environment variables in Vercel dashboard:**
-
-| Variable | Description |
-|---|---|
-| `DATABASE_URL` | Neon PostgreSQL connection string |
-| `JWT_SECRET` | Random 32+ char string (`openssl rand -base64 32`) |
-| `ADMIN_EMAIL` | Your login email |
-| `ADMIN_PASSWORD` | Your login password |
-| `GROQ_API_KEY` | From [console.groq.com](https://console.groq.com) |
-| `NEXT_PUBLIC_APP_URL` | Your Vercel deployment URL |
-
-After deploying, run database migrations:
+Add the same env vars to your Vercel dashboard, then run:
 
 ```bash
 npx prisma migrate deploy
@@ -174,139 +113,35 @@ npx prisma migrate deploy
 
 ---
 
-## 🗂️ Project Structure
+## 🔑 API Keys
 
-```
-viralcut/
-├── src/
-│   ├── app/
-│   │   ├── (app)/                  # Protected app pages (require login)
-│   │   │   ├── factory/            # ⚡ Core AI Shorts Factory
-│   │   │   ├── scene-generator/    # 🎬 AI Video Generation
-│   │   │   ├── script-generator/   # ✍️  AI Script Writing
-│   │   │   ├── viral-analyzer/     # 📊 Deep Viral Analysis
-│   │   │   ├── research/           # 🔥 Trend Research
-│   │   │   ├── competitor/         # 🕵️  Competitor Intel
-│   │   │   ├── calendar/           # 📅 Content Calendar
-│   │   │   ├── video-editor/       # 🎮 Timeline Editor
-│   │   │   ├── video-studio/       # 🎥 AI Video Studio
-│   │   │   ├── dashboard/          # 🏠 Dashboard
-│   │   │   └── settings/           # ⚙️  User Settings & API Keys
-│   │   ├── (auth)/                 # Login & Register pages
-│   │   ├── api/                    # 31 API routes
-│   │   │   ├── analyze/            # AI analysis + caption fetch
-│   │   │   ├── captions/           # Server-side YouTube captions
-│   │   │   ├── clip/               # Video clip (yt-dlp + ffmpeg)
-│   │   │   ├── voice/              # TTS cascade
-│   │   │   ├── ytproxy/            # CORS-safe video proxy
-│   │   │   ├── trending/           # YouTube trending data
-│   │   │   ├── hooks/              # AI hook generation
-│   │   │   ├── scene/              # Scene generation pipeline
-│   │   │   └── ...                 # 23 more routes
-│   │   ├── globals.css             # CSS design system (dark + light)
-│   │   └── layout.tsx              # Root layout + flash-free theme init
-│   ├── components/
-│   │   ├── CanvasRenderer.tsx      # HTML5 Canvas frame renderer
-│   │   └── Shell.tsx               # App shell + sidebar navigation
-│   └── lib/
-│       ├── ai.ts                   # Groq client + multi-key rotation
-│       ├── auth.ts                 # JWT helpers
-│       ├── userKeys.ts             # Per-user API key injection
-│       └── video-providers.ts      # Video generation provider logic
-├── prisma/
-│   └── schema.prisma               # Database schema
-├── .github/workflows/ci.yml        # GitHub Actions CI
-├── vercel.json                     # Vercel function timeouts
-└── .env.example                    # Environment variable template
-```
+| Key                  | Source                                           | Unlocks                    |
+| -------------------- | ------------------------------------------------ | -------------------------- |
+| `GROQ_API_KEY`       | [console.groq.com](https://console.groq.com)     | AI analysis — **required** |
+| `YOUTUBE_API_KEY`    | [Google Cloud](https://console.cloud.google.com) | Real-time trending         |
+| `ELEVENLABS_API_KEY` | [elevenlabs.io](https://elevenlabs.io)           | Premium voiceover          |
+| `PEXELS_API_KEY`     | [pexels.com/api](https://www.pexels.com/api/)    | Stock video                |
+| `RUNWAY_API_KEY`     | [runwayml.com](https://app.runwayml.com/account) | AI video generation        |
 
----
-
-## 🕸️ Snippets
-
-**Video Loading Architecture**
-
-```
-1. /api/ytproxy?videoId=xxx&itag=18  →  Server proxies video stream (CORS-safe for Canvas)
-2. /api/ytproxy?videoId=xxx&itag=22  →  HD 720p proxy variant
-3. YouTube Embed <iframe>            →  Reliable visual fallback
-```
-
-**Caption Fetching Cascade**
-
-```
-1. YouTube timedtext API (server-side, en/en-US variants)
-2. YouTube page scraping (captionTracks JSON extraction)
-3. Groq Whisper AI transcription (fallback)
-```
-
-**TTS / Voiceover Cascade**
-
-```
-1. ElevenLabs (premium, 5 voice models)  →  requires ELEVENLABS_API_KEY
-2. Google Translate TTS (free)           →  no key needed
-3. Browser speechSynthesis               →  always works
-```
-
-**AI Key Rotation** — `src/lib/ai.ts`
-
-```typescript
-// Add up to 4 Groq keys for rotation under heavy load
-// GROQ_API_KEY, GROQ_API_KEY_2, GROQ_API_KEY_3, GROQ_API_KEY_4
-// Falls back to Gemini if all Groq keys are rate-limited
-```
-
----
-
-## 🔑 API Keys Reference
-
-| Key | Where to get | What it unlocks |
-|---|---|---|
-| `GROQ_API_KEY` | [console.groq.com](https://console.groq.com) | AI analysis — **required** |
-| `YOUTUBE_API_KEY` | [Google Cloud Console](https://console.cloud.google.com) | Real-time trending |
-| `ELEVENLABS_API_KEY` | [elevenlabs.io](https://elevenlabs.io) | Premium AI voiceover |
-| `PEXELS_API_KEY` | [pexels.com/api](https://www.pexels.com/api/) | Stock video (free 200/hr) |
-| `PIXABAY_API_KEY` | [pixabay.com/api](https://pixabay.com/api/docs/) | Additional stock video |
-| `GEMINI_API_KEY` | [aistudio.google.com](https://aistudio.google.com/app/apikey) | AI fallback |
-| `RUNWAY_API_KEY` | [app.runwayml.com](https://app.runwayml.com/account) | AI video generation |
-
-All keys can also be added per-user in **Settings → API Keys** — stored encrypted in the database.
-
----
-
-## ⚗️ Optional Server Tools
-
-Install these for the best server-side clip quality (not required — canvas export works without them):
-
-```bash
-# yt-dlp — Direct YouTube download
-pip install yt-dlp
-
-# ffmpeg — Video trim + 9:16 crop
-sudo apt install ffmpeg        # Ubuntu/Debian
-brew install ffmpeg            # macOS
-winget install ffmpeg          # Windows
-```
+All keys can also be added per-user in **Settings → API Keys**.
 
 ---
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create your feature branch — `git checkout -b feature/amazing-feature`
-3. Commit — `git commit -m "feat: add amazing feature"`
-4. Push — `git push origin feature/amazing-feature`
-5. Open a Pull Request
+Issues and PRs welcome.
+
+```bash
+git checkout -b feature/my-feature
+git commit -m "feat: my feature"
+git push origin feature/my-feature
+# open a pull request
+```
 
 ---
 
 ## 📄 License
 
-Licensed under the [MIT License](LICENSE).
+MIT © [Dipanshu Singh](https://github.com/Dipanshu-js)
 
----
-
-<div align="center">
-  Built with ❤️ by <a href="https://github.com/Dipanshu-js">Dipanshu</a><br/>
-  <strong>⭐ Star this repo if it helps your content workflow!</strong>
-</div>
+[![footer](https://capsule-render.vercel.app/api?type=waving&color=0:6c5ce7,100:0d1117&height=80&section=footer)](https://github.com/Dipanshu-js/ViralCut)
