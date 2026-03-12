@@ -1,6 +1,6 @@
 <div align="center">
 
-[![banner](https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,100:6c5ce7&height=140&section=header&text=ViralCut&fontSize=38&fontColor=ffffff&fontAlignY=50&desc=AI+YouTube+Shorts+Factory&descSize=14&descAlignY=70&descFontColor=8b949e)](https://viralcut.vercel.app)
+[![banner](https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,100:6c5ce7&height=140&section=header&text=ViralCut&fontSize=38&fontColor=ffffff&fontAlignY=50&desc=AI+YouTube+Shorts+Factory&descSize=14&descAlignY=70&descFontColor=8b949e)](https://viralcut-tau.vercel.app)
 
 [![Next.js](https://img.shields.io/badge/Next.js_15-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org)
@@ -10,6 +10,10 @@
 [![Prisma](https://img.shields.io/badge/Prisma_ORM-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://prisma.io)
 [![License](https://img.shields.io/github/license/Dipanshu-js/ViralCut?style=for-the-badge&color=8b949e)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/Dipanshu-js/ViralCut?style=for-the-badge&color=ffd43b)](https://github.com/Dipanshu-js/ViralCut/stargazers)
+
+**[🚀 Live Demo](https://viralcut-tau.vercel.app) · [Report Bug](https://github.com/Dipanshu-js/ViralCut/issues) · [Request Feature](https://github.com/Dipanshu-js/ViralCut/issues)**
+
+[![ViralCut Screenshot](https://github.com/Dipanshu-js/ViralCut/blob/main/public/screenshot.png?raw=true)](https://viralcut-tau.vercel.app)
 
 </div>
 
@@ -102,31 +106,27 @@ Open [http://localhost:3000](http://localhost:3000) — log in with `ADMIN_EMAIL
 
 ## 🚀 Deploy to Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/import?repository-url=https://github.com/Dipanshu-js/ViralCut)
+```bash
+npm i -g vercel
+vercel login
+vercel --prod
+```
 
-> **This button imports directly from this repo — it will NOT clone a new private copy.**
+Add these environment variables in the Vercel dashboard:
 
-Add these environment variables in the Vercel setup wizard **before** clicking Deploy:
-
-| Variable              | Description                                       |
-| --------------------- | ------------------------------------------------- |
-| `DATABASE_URL`        | Neon PostgreSQL connection string                 |
-| `JWT_SECRET`          | Random 32+ char string                            |
-| `ADMIN_EMAIL`         | Your login email                                  |
-| `ADMIN_PASSWORD`      | Your login password                               |
-| `GROQ_API_KEY`        | From [console.groq.com](https://console.groq.com) |
-| `NEXT_PUBLIC_APP_URL` | Your Vercel deployment URL                        |
+| Variable              | Description                                        |
+| --------------------- | -------------------------------------------------- |
+| `DATABASE_URL`        | Neon PostgreSQL connection string                  |
+| `JWT_SECRET`          | Random 32+ char string (`openssl rand -base64 32`) |
+| `ADMIN_EMAIL`         | Your login email                                   |
+| `ADMIN_PASSWORD`      | Your login password                                |
+| `GROQ_API_KEY`        | From [console.groq.com](https://console.groq.com)  |
+| `NEXT_PUBLIC_APP_URL` | Your Vercel deployment URL                         |
 
 After deploy, run the database migration once:
 
 ```bash
 npx prisma db push
-```
-
-**Or via CLI:**
-
-```bash
-npm i -g vercel && vercel login && vercel --prod
 ```
 
 ---
@@ -162,4 +162,4 @@ git push origin feature/my-feature
 
 MIT © [Dipanshu Singh](https://github.com/Dipanshu-js)
 
-[![footer](https://capsule-render.vercel.app/api?type=waving&color=0:6c5ce7,100:0d1117&height=80&section=footer)](https://github.com/Dipanshu-js/ViralCut)
+[![footer](https://capsule-render.vercel.app/api?type=waving&color=0:6c5ce7,100:0d1117&height=80&section=footer)](https://viralcut-tau.vercel.app)
