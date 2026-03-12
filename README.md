@@ -102,12 +102,31 @@ Open [http://localhost:3000](http://localhost:3000) — log in with `ADMIN_EMAIL
 
 ## 🚀 Deploy to Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Dipanshu-js/ViralCut)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/import?repository-url=https://github.com/Dipanshu-js/ViralCut)
 
-Add the same env vars to your Vercel dashboard, then run:
+> **This button imports directly from this repo — it will NOT clone a new private copy.**
+
+Add these environment variables in the Vercel setup wizard **before** clicking Deploy:
+
+| Variable              | Description                                       |
+| --------------------- | ------------------------------------------------- |
+| `DATABASE_URL`        | Neon PostgreSQL connection string                 |
+| `JWT_SECRET`          | Random 32+ char string                            |
+| `ADMIN_EMAIL`         | Your login email                                  |
+| `ADMIN_PASSWORD`      | Your login password                               |
+| `GROQ_API_KEY`        | From [console.groq.com](https://console.groq.com) |
+| `NEXT_PUBLIC_APP_URL` | Your Vercel deployment URL                        |
+
+After deploy, run the database migration once:
 
 ```bash
-npx prisma migrate deploy
+npx prisma db push
+```
+
+**Or via CLI:**
+
+```bash
+npm i -g vercel && vercel login && vercel --prod
 ```
 
 ---
