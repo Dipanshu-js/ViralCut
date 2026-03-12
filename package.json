@@ -1,6 +1,6 @@
 {
   "name": "viralcut",
-  "version": "3.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -20,7 +20,7 @@
     "prisma": "^5.22.0",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",
-    "groq-sdk": "^0.7.0",
+    "groq-sdk": "^0.13.0",
     "sonner": "^1.7.1",
     "uuid": "^10.0.0"
   },

@@ -98,3 +98,6 @@ NOTES.md
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
+
+# Setup/backdate scripts (internal use only)
+setup.sh
