@@ -19,17 +19,18 @@ import { getUser } from "@/lib/auth";
 
 export async function POST(req: NextRequest) {
   const user = await getUser();
-  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!user)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const {
-    videoUrl,         // public URL or blob URL
-    videoBase64,      // base64 data
+    videoUrl, // public URL or blob URL
+    videoBase64, // base64 data
     title = "My Short",
     description = "Created with ViralCut AI 🎬",
     tags = ["shorts", "viral"],
     privacy = "private",
-    accessToken,      // YouTube OAuth2 token
-    scheduledAt,      // ISO date string for scheduling
+    accessToken, // YouTube OAuth2 token
+    scheduledAt, // ISO date string for scheduling
   } = await req.json();
 
   if (!accessToken) {
@@ -67,7 +68,10 @@ export async function POST(req: NextRequest) {
       const res = await fetch(videoUrl, { signal: AbortSignal.timeout(60000) });
       videoBuffer = Buffer.from(await res.arrayBuffer());
     } else {
-      return NextResponse.json({ error: "videoUrl or videoBase64 required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "videoUrl or videoBase64 required" },
+        { status: 400 },
+      );
     }
 
     // Upload to YouTube using resumable upload
@@ -80,25 +84,36 @@ export async function POST(req: NextRequest) {
       {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json; charset=UTF-8",
           "X-Upload-Content-Type": mimeType,
           "X-Upload-Content-Length": String(videoBuffer.length),
         },
         body: metadataStr,
-      }
+      },
     );
 
     if (!initRes.ok) {
       const err = await initRes.text();
       if (initRes.status === 401) {
-        return NextResponse.json({ ok: false, error: "Token expired", requiresReauth: true });
+        return NextResponse.json({
+          ok: false,
+          error: "Token expired",
+          requiresReauth: true,
+        });
       }
-      return NextResponse.json({ ok: false, error: `YouTube API error: ${err.slice(0, 200)}` }, { status: initRes.status });
+      return NextResponse.json(
+        { ok: false, error: `YouTube API error: ${err.slice(0, 200)}` },
+        { status: initRes.status },
+      );
     }
 
     const uploadUrl = initRes.headers.get("location");
-    if (!uploadUrl) return NextResponse.json({ ok: false, error: "No upload URL from YouTube" }, { status: 500 });
+    if (!uploadUrl)
+      return NextResponse.json(
+        { ok: false, error: "No upload URL from YouTube" },
+        { status: 500 },
+      );
 
     // Upload video bytes
     const uploadRes = await fetch(uploadUrl, {
@@ -107,15 +122,18 @@ export async function POST(req: NextRequest) {
         "Content-Type": mimeType,
         "Content-Length": String(videoBuffer.length),
       },
-      body: videoBuffer,
+      body: new Uint8Array(videoBuffer),
     });
 
     if (!uploadRes.ok && uploadRes.status !== 201) {
       const err = await uploadRes.text();
-      return NextResponse.json({ ok: false, error: `Upload failed: ${err.slice(0, 200)}` }, { status: 500 });
+      return NextResponse.json(
+        { ok: false, error: `Upload failed: ${err.slice(0, 200)}` },
+        { status: 500 },
+      );
     }
 
-    const video = await uploadRes.json() as {
+    const video = (await uploadRes.json()) as {
       id: string;
       snippet?: { title: string };
       status?: { uploadStatus: string };
@@ -129,17 +147,20 @@ export async function POST(req: NextRequest) {
       title: video.snippet?.title,
       status: video.status?.uploadStatus,
     });
-
   } catch (err) {
     console.error("[publish]", err);
-    return NextResponse.json({ ok: false, error: String(err) }, { status: 500 });
+    return NextResponse.json(
+      { ok: false, error: String(err) },
+      { status: 500 },
+    );
   }
 }
 
 function getYouTubeAuthUrl(): string {
   const clientId = process.env.YOUTUBE_OAUTH_CLIENT_ID || "";
   const redirectUri = `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/api/publish/callback`;
-  const scope = "https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube";
+  const scope =
+    "https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube";
 
   if (!clientId) return "";
 
@@ -149,13 +170,15 @@ function getYouTubeAuthUrl(): string {
 // GET: Generate YouTube OAuth URL
 export async function GET() {
   const user = await getUser();
-  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!user)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const authUrl = getYouTubeAuthUrl();
   return NextResponse.json({
     ok: true,
     authUrl,
     hasClientId: !!process.env.YOUTUBE_OAUTH_CLIENT_ID,
-    instructions: "Add YOUTUBE_OAUTH_CLIENT_ID and YOUTUBE_OAUTH_CLIENT_SECRET to .env.local to enable direct YouTube upload",
+    instructions:
+      "Add YOUTUBE_OAUTH_CLIENT_ID and YOUTUBE_OAUTH_CLIENT_SECRET to .env.local to enable direct YouTube upload",
   });
 }

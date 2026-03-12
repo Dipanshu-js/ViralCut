@@ -11,7 +11,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { getUser } from "@/lib/auth";
 import { INVIDIOUS_INSTANCES } from "@/lib/constants";
 
-interface WhisperSegment { start: number; end: number; text: string; }
+interface WhisperSegment {
+  start: number;
+  end: number;
+  text: string;
+}
 
 async function fetchAudioViaInvidious(videoId: string): Promise<Buffer | null> {
   for (const instance of INVIDIOUS_INSTANCES) {
@@ -24,20 +28,27 @@ async function fetchAudioViaInvidious(videoId: string): Promise<Buffer | null> {
       if (!res.ok) continue;
       const buf = await res.arrayBuffer();
       if (buf.byteLength > 1000) return Buffer.from(buf);
-    } catch { continue; }
+    } catch {
+      continue;
+    }
   }
   return null;
 }
 
 export async function POST(req: NextRequest) {
   const user = await getUser();
-  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!user)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { audioBase64, mimeType = "audio/mp4", videoId } = await req.json();
 
   const groqKey = process.env.GROQ_API_KEY;
   if (!groqKey) {
-    return NextResponse.json({ ok: false, error: "GROQ_API_KEY not set", fallback: true });
+    return NextResponse.json({
+      ok: false,
+      error: "GROQ_API_KEY not set",
+      fallback: true,
+    });
   }
 
   try {
@@ -49,7 +60,8 @@ export async function POST(req: NextRequest) {
       if (!audioBuffer) {
         return NextResponse.json({
           ok: false,
-          error: "Could not fetch audio. Try uploading audio manually or use YouTube captions.",
+          error:
+            "Could not fetch audio. Try uploading audio manually or use YouTube captions.",
           fallback: true,
         });
       }
@@ -58,43 +70,65 @@ export async function POST(req: NextRequest) {
     }
 
     if (!audioBuffer) {
-      return NextResponse.json({ ok: false, error: "No audio data provided" }, { status: 400 });
+      return NextResponse.json(
+        { ok: false, error: "No audio data provided" },
+        { status: 400 },
+      );
     }
 
     const formData = new FormData();
-    const audioBlob = new Blob([audioBuffer], { type: mimeType });
+    const audioBlob = new Blob([new Uint8Array(audioBuffer)], {
+      type: mimeType,
+    });
     formData.append("file", audioBlob, "audio.mp4");
     formData.append("model", "whisper-large-v3");
     formData.append("response_format", "verbose_json");
     formData.append("timestamp_granularities[]", "segment");
     formData.append("language", "en");
 
-    const res = await fetch("https://api.groq.com/openai/v1/audio/transcriptions", {
-      method: "POST",
-      headers: { "Authorization": `Bearer ${groqKey}` },
-      body: formData,
-      signal: AbortSignal.timeout(120000),
-    });
+    const res = await fetch(
+      "https://api.groq.com/openai/v1/audio/transcriptions",
+      {
+        method: "POST",
+        headers: { Authorization: `Bearer ${groqKey}` },
+        body: formData,
+        signal: AbortSignal.timeout(120000),
+      },
+    );
 
     if (!res.ok) {
       const err = await res.text();
-      return NextResponse.json({ ok: false, error: `Whisper API error: ${err.slice(0, 200)}` }, { status: 500 });
+      return NextResponse.json(
+        { ok: false, error: `Whisper API error: ${err.slice(0, 200)}` },
+        { status: 500 },
+      );
     }
 
-    const data = await res.json() as { text: string; language: string; segments?: WhisperSegment[] };
+    const data = (await res.json()) as {
+      text: string;
+      language: string;
+      segments?: WhisperSegment[];
+    };
 
-    const segments = (data.segments || []).map(s => ({
-      start: s.start,
-      dur: s.end - s.start,
-      text: s.text.trim(),
-    })).filter(s => s.text);
+    const segments = (data.segments || [])
+      .map((s) => ({
+        start: s.start,
+        dur: s.end - s.start,
+        text: s.text.trim(),
+      }))
+      .filter((s) => s.text);
 
     return NextResponse.json({
-      ok: true, text: data.text, language: data.language,
-      segments, segmentCount: segments.length,
+      ok: true,
+      text: data.text,
+      language: data.language,
+      segments,
+      segmentCount: segments.length,
     });
-
   } catch (err) {
-    return NextResponse.json({ ok: false, error: String(err) }, { status: 500 });
+    return NextResponse.json(
+      { ok: false, error: String(err) },
+      { status: 500 },
+    );
   }
 }
